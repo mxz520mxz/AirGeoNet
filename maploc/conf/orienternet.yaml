@@ -1,0 +1,40 @@
+defaults:
+  - data: huawei
+  - model/image_encoder: resnet_fpn
+  - training
+  - _self_
+model:
+  name: orienternet
+  latent_dim: 1536
+  matching_dim: 8
+  z_max: 128
+  x_max: 100
+  pixel_per_meter: ${data.pixel_per_meter}
+  num_scale_bins: 33
+  num_rotations: 8
+  image_encoder:
+    backbone:
+      encoder: resnet101
+  map_encoder:
+    embedding_dim: 16
+    output_dim: ${..matching_dim}
+    num_classes: ${data.num_classes}
+    backbone:
+      encoder: vgg19
+      pretrained: false
+      output_scales: [0]
+      num_downsample: 3
+      decoder: [128, 64, 64]
+      padding: replicate
+    unary_prior: false
+  air_net:
+    num_blocks: 4
+    latent_dim: ${..latent_dim}
+    output_dim: ${..matching_dim}
+    confidence: true
+  DINOV2:
+    dino_model: dinov2_vitg14,
+    layer: 31, 
+    facet: value,
+    use_cls: False, 
+    norm_descs: True,
