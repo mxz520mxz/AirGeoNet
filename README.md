@@ -1,4 +1,4 @@
-# AirGeoNet A NetWork for Large-Scale Localization
+# AirGeoNet: A NetWork for Large-Scale Localization
 
 # Result
 
