@@ -1,0 +1,26 @@
+name: Remote
+loading:
+  train:
+    batch_size: 9
+    num_workers: ${.batch_size}
+  val:
+    batch_size: ${..train.batch_size}
+    num_workers: ${.batch_size}
+# make sure train and val locations are at least 5m apart
+selection_subset_val: furthest
+max_num_val: 500
+drop_train_too_close_to_val: 5.0
+# map data
+num_classes:
+  areas: 7
+  ways: 10
+  nodes: 33
+pixel_per_meter: 2
+crop_size_meters: 256
+max_init_error: 32
+resize_image: {'Remote':[550, 557]}  
+rectify_pitch: true
+augmentation:
+  rot90: true
+  flip: true
+  image: {apply: true}
